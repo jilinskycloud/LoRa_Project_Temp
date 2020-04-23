@@ -1,0 +1,3 @@
+{"server_url":"http://xy.cenwei.net:2980","post_url":"/api.php/admin/iot/saveMonitor","sensor_id":"42-3D","time_to_send":"5","protocol_type":"http","service_type": "temp_service"}
+{"server_url":"http://xy.cenwei.net:2980","post_url":"/api.php/admin/iot/saveMonitor","sensor_id":"42-37","time_to_send":"10","protocol_type":"http","service_type": "temp_service"}
+{"server_url":"http://xy.cenwei.net:2980","post_url":"/api.php/admin/iot/saveMonitor","sensor_id":"41-B6","time_to_send":"15","protocol_type":"http","service_type": "temp_service"}

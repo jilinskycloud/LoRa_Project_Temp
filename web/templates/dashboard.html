@@ -1,0 +1,164 @@
+{% extends 'layout.html' %}
+{% block title %}
+  {{ data['serial'] }}
+{% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <div class="container  _dashb">
+      <h4 class="alert-heading ">Where does it come from?</h4>
+      <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p> <hr>
+      <div class="list-group">
+        <button type="button" class="list-group-item list-group-item-action" disabled id="_sysInfo">
+          <i class="fa fa-info-circle" aria-hidden="true"></i> System Information 
+        </button>
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">Host Name:</div>
+            <div class="col-9">{{ data['hostname'] }}</div>
+          </div>
+        </button>
+          <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">Gateway Serial:</div>
+            <div class="col-9">{{ data['serial'] }}</div>
+          </div>
+        </button>
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">Router Model:</div>
+            <div class="col-9">{{ data['routeM'] }}</div>
+          </div>
+        </button>
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">System Memory:</div>
+            <div class="col-9">Total Memory: {{ data['ttl_memo'] }}MB | Used: {{ data['ttl_memo_used'] }}MB Available: {{ data['ttl_memo_avai'] }}MB</div>
+          </div>
+        </button>
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">Firmware Version:</div>
+            <div class="col-9">{{ data['FirmV'] }}</div>
+          </div>
+        </button>
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">Local Time:</div>
+            <div class="col-9">{{ data['lTime'] }}</div>
+          </div>
+        </button>
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">Run Time:</div>
+            <div class="col-9">{{ data['runTime'] }}</div>
+          </div>
+        </button>
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">CPU Load:</div>
+            <div class="col-9">{{ data['cpu_load'] }}</div>
+          </div>
+        </button>
+
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">Reload Time:</div>
+            <div class="col-9">{{ data['reload'] }}</div>
+          </div>
+        </button>
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">CPU Testing:</div>
+            <div class="col-9">{{ data['cpu'] }}</div>
+          </div>
+        </button>
+
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">CPU Frequency:</div>
+            <div class="col-9">{{ data['cpu_freq'] }}</div>
+          </div>
+        </button>
+        <button type="button" class="list-group-item list-group-item-action" disabled>
+          <div class="row">
+            <div class="col-3">Network:</div>
+            <div class="col-9">eth0: <br>
+              {% set a = data['network'].split() %}
+              <div class="row">
+                <div class="col-2">IP Address:</div>
+                <div class="col-3">{{ a[0] }}</div>
+              </div>
+              <div class="row">
+                <div class="col-2">Gateway IP:</div>
+                <div class="col-3">{{ a[1] }}</div>
+              </div>
+              <div class="row">
+                <div class="col-2">Netmask:</div>
+                <div class="col-3">{{ a[2] }}</div>
+              </div>
+           </div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" style="min-height:100% width:80%" id="alert_message">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+  <div class="alert alert-success" role="alert">
+    <b>{{message}}</b>
+  </div>
+    {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% block body %}{% endblock %}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </div>
+    <!-- 
+      <h4>This is the stats testing! {{ stats }}</h4> 
+      <h4>This is the Total Memory! {{ ttl_memo }}</h4> 
+      <h4>This is the Swap Memo! {{ swp_memo }}</h4>
+      <h4>This is the NIC Address! {{ nic_addr }}</h4>  
+      <h4>This is the Device Temperature! {{ tmp }}</h4>
+      <h4>This is the Current User! {{ c_user }}</h4>
+    
+    <span class="border border-info"></span>
+    <span class="border border-light"></span>
+    <span class="border border-dark"></span>
+    <span class="border border-white"></span>
+  -->
+{% endblock %}
+
+
+

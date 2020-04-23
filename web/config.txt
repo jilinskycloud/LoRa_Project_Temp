@@ -1,0 +1,4 @@
+{
+    "key": " 'ZUbNJTmZ2MVOynkMCMTnkA==')",
+    "auto_config": "yes"
+}

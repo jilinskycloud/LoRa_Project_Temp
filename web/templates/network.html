@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block title %}
+  Network
+{% endblock %}
+{% block network %}
+    
+<br><br>
+<span><h4><b>&nbsp&nbsp&nbspNetwork Configuration:</b></h4></span>
+  <form class="container" action = "/network" method = "POST">     
+    <textarea class="form-control .console_" id="exampleFormControlTextarea1" name="net_data" rows="20"  class="json_data">{{ net }}</textarea><br>
+    <button type="submit" class="btn btn-primary">Apply & Save</button><br>
+  </form><br>
+{% endblock %}
+
+
+

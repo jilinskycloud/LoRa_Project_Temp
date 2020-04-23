@@ -1,0 +1,8 @@
+status: 200
+content-type: text/html; charset=utf-8
+content-length: 7
+server: Werkzeug/0.16.0 Python/3.5.2
+content-location: http://192.168.1.74:5000/heartBeat/000000002|192.168.1.58|heartbeat
+date: Fri, 10 Jan 2020 01:11:40 GMT
+
+success

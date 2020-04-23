@@ -1,0 +1,8 @@
+status: 200
+content-type: text/html; charset=utf-8
+content-length: 7
+server: Werkzeug/0.16.0 Python/3.5.2
+date: Thu, 09 Jan 2020 07:08:15 GMT
+content-location: http://192.168.1.74:5000/http_data/0003|7473653845|-87|djkfgh|192.167.1.89
+
+success

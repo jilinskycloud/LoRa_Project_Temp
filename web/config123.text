@@ -1,0 +1,18 @@
+{
+   "id":7,
+   "gw_id":"SC-CC202004",
+   "sn_id":"41-B6",
+   "s_time":0,
+   "hb_api_address":"aa",
+   "data_api_address":"aa",
+   "data_reboot_time":0,
+   "hb_interval":0,
+   "data_interval":0,
+   "version":"aa",
+   "last":1,
+   "use":0,
+   "create_time":1587521796,
+   "update_time":0,
+   "pData": "on",
+   "hBeat": "on"
+}

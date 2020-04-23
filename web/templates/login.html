@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>Flask Intro - login page</title>
+		<script type="text/javascript" src="{{ url_for('static', filename='bootstrap-4.4.1/js/jquery-3.4.1.slim.min.js') }}" ></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='bootstrap-4.4.1/js/popper.min.js') }}" ></script>
+		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.4.1/css/bootstrap.min.css') }}">
+		<script type="text/javascript" src="{{ url_for('static', filename='bootstrap-4.4.1/js/bootstrap.min.js') }}"></script>
+	    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+
+ <body style="background-color: white;">
+ 	<div class="container-sm" style="background-color: #000000bf; color: white;"><br>
+ 	<label for="exampleInputEmail1" style="text-align: center;"><h3>Admin Login</h3></label>
+	<form action="" method="post">
+  		<div class="form-group"><br>
+    		<label for="exampleInputEmail1">UserName</label>
+    		<input type="text" class="form-control" id="exampleInputPassword1" name="username" value="{{ request.form.username }}" required>
+  		</div>
+  		<div class="form-group">
+    		<label for="exampleInputPassword1">Password</label>
+    		<input type="password" name="password" class="form-control" id="exampleInputPassword1" value="{{ request.form.password }}" required>
+  		</div>
+  		<div class="form-group form-check">
+    		<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    		<label class="form-check-label" for="exampleCheck1">Check me out</label>
+  		</div>
+  		<button type="submit" value="Login" class="btn btn-primary">Login</button>
+	</form>
+   		{% if error %}
+        	<div class="alert alert-danger" role="alert">
+  <b>Error: </b>{{error}}
+</div>
+      	{% endif %}
+      	<br>
+</dev>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

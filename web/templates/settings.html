@@ -1,0 +1,258 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  Settings
+{% endblock %}
+
+{% block editProfile %}
+
+<br>
+<br>
+<nav>
+  <div class="container">
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Update Login</a>
+    <a class="nav-item nav-link" id="nav-resetBle-tab" data-toggle="tab" href="#nav-resetBle" role="tab" aria-controls="nav-resetBle" aria-selected="false">Reset LoRa</a>
+    <a class="nav-item nav-link" id="nav-conn-tab" data-toggle="tab" href="#nav-conn" role="tab" aria-controls="nav-conn" aria-selected="false">Connection Settings</a>
+    <a class="nav-item nav-link" id="nav-conf-tab" data-toggle="tab" href="#nav-conf" role="tab" aria-controls="nav-conf" aria-selected="false">Sensors Config</a>
+    <a class="nav-item nav-link" id="nav-resetredis-tab" data-toggle="tab" href="#nav-resetredis" role="tab" aria-controls="nav-resetredis" aria-selected="false" hidden>Reset Redis</a>
+    <a class="nav-item nav-link" id="nav-reboot-tab" data-toggle="tab" href="#nav-reboot" role="tab" aria-controls="nav-reboot" aria-selected="false">Reboot System</a>
+  </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active container" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <br>
+    <div class="container">
+      <br>
+      <form class="container" action = "/settings/" method = "POST">
+        <div class="form-row">
+          <div class="col">
+            <input type="text" name="name" class="form-control" placeholder="Login Name" required>
+          </div>  
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+            <input type="text" name="pass" class="form-control" id="pass" placeholder="Enter Password" aceholder="Password" required>
+          </div>
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+            <input type="text"  class="form-control" id="c_pass" placeholder="Re-Enter Password" required>
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" onclick="return submitData()">Submit</button>
+      </form>
+      <br>
+      <table class="table table-hover">
+        <thead>
+          <tr><h3>Login Details:</h3></tr>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">User Name: </th>
+              <th scope="col">Password:</th>
+              <th scope="col">DELETE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for coll in rec %}
+          <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>
+              <p class="badge badge-light">{{ coll[1]}}</p>
+              <!-- <a href="http://192.168.1.74/mongoRec/{{collections}}">{{collections}}</a> -->
+            </td>
+            <td>
+              <p class="badge badge-light">{{ coll[2]}}</p>
+                <!-- <a href="http://192.168.1.74/mongoRec/{{collections}}">{{collections}}</a> -->
+            </td>
+            <td><a href="/delProfile/{{coll[0]}}" class="badge badge-danger"><i class="far fa-trash-alt fa-2x"></i></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade container" id="nav-resetBle" role="tabpanel" aria-labelledby="nav-update-tab">
+    <br>
+    <div class="container">
+      <form method="POST" action="/resetLora">
+        <div class="form-group" >
+          <label for="exampleFormControlFile1">Reset LoRa: <span style="color:red;">(Current Status={{ stt_lora }})</span></label>
+
+      <select name="reset_lora" id="inputState" class="form-control" required="" hidden>
+              <option selected="">---</option>
+              <option>on</option>
+              <option>off</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Reset</button>
+      </form>
+    </div>
+    <br>
+  </div>
+<div class="tab-pane fade container" id="nav-resetredis" role="tabpanel" aria-labelledby="nav-update-tab">
+    <br>
+    <div class="container">
+      <form method="POST" action="/resetredis">
+        <button type="submit" class="btn btn-primary">Reset</button>
+      </form>
+    </div>
+    <br>
+  </div>
+    
+
+  <div class="tab-pane fade container" id="nav-reboot" role="tabpanel" aria-labelledby="nav-reboot-tab">
+    <br>
+    <form action="/reboot">
+      <div class="form-row align-items-center">
+        <button type="submit" class="btn btn-primary mb-2">Reboot</button>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="container" style="min-height:100% width:80%" id="alert_message">
+  {% for category, message in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-success at-{{category}}" role="alert">
+      <b>{{message}}</b>
+    </div>
+  {% endfor %}
+
+</div>
+
+
+<div class="tab-pane fade container" id="nav-conn" role="tabpanel" aria-labelledby="nav-update-tab">
+  <div class="container" style="min-height:100% width:80%" id="alert_message">
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+      <div class="alert alert-success at-{{category}}" role="alert">
+        <b>{{message}}</b>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="form-group"><br>
+    <form class="container" action = "/connect" method = "POST">
+      <div class="form-row"><br>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" name="connect_page" hidden>
+          {% if chk['hBeat'] == 'on' %}
+            <input type="checkbox" class="form-check-input" id="ble_hb" checked onclick="ble_heartbeat()">
+          {% elif chk['hBeat'] == 'off' %}
+            <input type="checkbox" class="form-check-input" id="ble_hb" onclick="ble_heartbeat()">
+          {% endif %}
+          <label class="form-check-label" for="exampleCheck1">Enable Heartbeat</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group form-check">
+          <input type="hidden" name="hBeat" class="form-check-input" id="ble_hb_val" value="{{ chk['hBeat'] }}" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group form-check">
+          {% if chk['pData'] == 'on' %}
+            <input type="checkbox" class="form-check-input" id="ble_post" checked onclick="ble_post1()">
+          {% elif chk['pData'] == 'off' %}
+            <input type="checkbox" class="form-check-input" id="ble_post" onclick="ble_post1()">
+          {% endif %}
+          <label class="form-check-label" for="exampleCheck1">Enable post data</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group form-check">
+          <input type="hidden" name="pData" class="form-check-input" id="ble_post_val" value="{{ chk['pData'] }}" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Apply & Save</button><br>
+    </form>
+  </div>
+</div>
+<div class="tab-pane fade container" id="nav-conf" role="tabpanel" aria-labelledby="nav-conf-tab"><br>
+  <div class="container">
+    <div class="tab-content" id="nav-tabContent">
+     <span><h4><b>&nbsp&nbsp&nbspSensors Configuration:</b></h4></span>
+      <form class="container" action = "/config_json" method = "POST">     
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="json_data" rows="20">{% for i in jsonObjList %}{{i}}{% endfor %}</textarea><br>
+        <button type="submit" class="btn btn-primary">Apply & Save</button><br>
+      </form><br>
+    </div>
+    <div id="json_data"></div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+$(document).ready(function(){
+
+  var config = $('#exampleFormControlTextarea1').val();
+  //config = JSON.stringify(JSON.parse(config),null,4);
+  config = config.split("\n")
+  //console.log(typeof(config));
+  console.log(config)
+  $('#exampleFormControlTextarea1').empty();
+  config.forEach(function(entry) {
+    if(entry!==''){
+    config = JSON.stringify(JSON.parse(entry),null,4);
+    document.getElementById("exampleFormControlTextarea1").append(config+"\n");
+    }
+
+  });
+
+})
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+function submitData(){
+    var pass = document.getElementById("pass").value;
+    var c_pass = document.getElementById("c_pass").value;
+    if(pass == c_pass){
+      console.log(pass);
+      return true;
+
+    }else{
+      console.log("Password is not same try again");
+      console.log(pass);
+      console.log(c_pass);
+      alert("Entered Password not Same! Try Again!");
+      return false;
+    }
+  }
+
+function ble_heartbeat() {
+  console.log("this is the test...")
+  var av=$('#ble_hb').is(':checked');
+  console.log(av);
+  if(av == true){
+     $("#ble_hb_val").val("on");
+     console.log(document.querySelector('#ble_hb_val').value);
+  }
+  else{
+    $("#ble_hb_val").val("off");
+  }
+}
+
+function ble_post1() {
+  console.log("this is the test...")
+  var av=$('#ble_post').is(':checked');
+  console.log(av);
+  if(av == true){
+     $("#ble_post_val").val("on");
+     console.log(document.querySelector('#ble_post_val').value);
+  }
+  else{
+    $("#ble_post_val").val("off");
+  }
+}
+
+</script>
+
+{% endblock %}
